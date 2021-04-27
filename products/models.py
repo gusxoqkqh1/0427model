@@ -3,13 +3,13 @@ from django.db import models
 
 class Category(models.Model):
     name         = models.CharField(max_length=50)
-    destination = models.ManyToManyField('Destination', through='Destination_Category')
+    destination  = models.ManyToManyField('Destination', through='Destination_Category')
 
     class Meta:
-        db_table ='categories'
+        db_table = 'categories'
 
 class Destination(models.Model):
-    name = models.CharField(max_length=50)
+    name      = models.CharField(max_length=50)
     image_url = models.CharField(max_length=3000)
 
     class Meta:
@@ -31,6 +31,9 @@ class Product(models.Model):
     gu         = models.ForeignKey('Gu', on_delete=models.CASCADE)
     city       = models.ForeignKey('City', on_delete=models.CASCADE)
     service    = models.ManyToManyField('Service', through='Convenience_Service')
+    latitude   = models.DecimalField(max_digis=15, decimal_places=5) # 위도 ?
+    longitude  = models.DecimalField(max_digis=15, decimal_places=5) # 경도 ?
+    is_reset   = models.BooleanField()
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
@@ -48,7 +51,6 @@ class Gu(models.Model):
     name = models.CharField(max_length=50)
     city = models.ForeignKey('City', on_delete=models.CASCADE)
 
-
     class Meta:
         db_table = 'gu'
 
@@ -61,7 +63,7 @@ class City(models.Model):
 
 
 class Service(models.Model):
-    name = models.CharField(max_length=50)
+    name             = models.CharField(max_length=50)
     service_category = models.ForeignKey('Service_Category', on_delete=models.CASCADE)
 
     class Meta:
@@ -76,3 +78,7 @@ class Service_Category(models.Model):
 class Convenience_Service(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'convenience_services'
+
