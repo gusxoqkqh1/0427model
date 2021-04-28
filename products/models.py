@@ -5,6 +5,7 @@ class Category(models.Model):
     destination = models.ManyToManyField('Destination', through='Destination_Category')
 
     class Meta:
+
         db_table = 'categories'
 
 class Destination(models.Model):
@@ -12,12 +13,15 @@ class Destination(models.Model):
     image_url = models.CharField(max_length=3000)
 
     class Meta:
+
         db_table ='destinations'
+
 class Destination_Category(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE)
     category    = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     class Meta:
+
         db_table ='destination_categories'
 
 class Product(models.Model):
@@ -36,6 +40,7 @@ class Product(models.Model):
     updated_at = models.DateField(auto_now=True)
 
     class Meta:
+
         db_table = 'products'
 
 class Product_Image(models.Model):
@@ -43,6 +48,7 @@ class Product_Image(models.Model):
     product   = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
+
         db_table ='product_images'
 
 class Gu(models.Model):
@@ -50,12 +56,14 @@ class Gu(models.Model):
     city = models.ForeignKey('City', on_delete=models.CASCADE)
 
 class Meta:
+
     db_table = 'gu'
 
 class City(models.Model):
     name = models.CharField(max_length=50 ,unique=True)
 
     class Meta:
+
         db_table = 'cities'
 
 class Service(models.Model):
@@ -63,12 +71,14 @@ class Service(models.Model):
     service_category = models.ForeignKey('Service_Category', on_delete=models.CASCADE)
 
     class Meta:
+
         db_table = 'services'
 
 class Service_Category(models.Model):
     name = models.CharField(max_length=50 ,unique=True)
 
     class Meta:
+
         db_table = 'service_categories'
 
 class Convenience_Service(models.Model):
@@ -76,4 +86,5 @@ class Convenience_Service(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
 
     class Meta:
+
         db_table = 'convenience_services'
